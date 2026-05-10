@@ -1,0 +1,27 @@
+name: build-push
+run-name: build and push docker image
+
+## trigers
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cloning repository
+        uses: actions/checkout@v6
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ahmedtalaat28
+          password: ${{secrets.DOCKER_CREDS}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ahmedtalaat28/nginx-web-app:v1
