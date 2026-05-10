@@ -5,6 +5,11 @@ run-name: build and push docker image
 
 on:
   workflow_dispatch:
+    inputs:
+      image-version:
+        type: string
+        required: true
+        
 
 jobs:
   build-push:
@@ -24,4 +29,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ahmedtalaat28/nginx-web-app:v1
+          tags: ahmedtalaat28/nginx-web-app:${{ inputs.image-version }}
